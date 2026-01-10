@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tata Surya Lengkap (8 Planet)</title>
+    
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo Belajar" class="logo">
+            <div class="judul-header">
+                <h1>Petualangan Menjelajah Tata Surya</h1>
+                <div class="info-akademik">
+                    <p><strong>Mata Kuliah:</strong> Desain Pembelajaran</p>
+                    <p><strong>Dosen Pengampu:</strong> Prof. Dr. Herpratiwi, M.Pd & Abi Krisna Arrasyid, S.Pd., M.Pd.</p>
+                    <p class="penulis">Disusun Oleh: Farhan Hidayat (24020030)</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <p class="instruksi" style="text-align: center; color: #FFD700; margin-top: 5px;">🔍 Klik planet untuk belajar!</p>
+        <div class="ruang-angkasa">
+            <div class="matahari" onclick="bukaInfo('matahari')"></div>
+            <div class="orbit orbit-1"><div class="planet merkurius" onclick="bukaInfo('merkurius')"></div></div>
+            <div class="orbit orbit-2"><div class="planet venus" onclick="bukaInfo('venus')"></div></div>
+            <div class="orbit orbit-3"><div class="planet bumi" onclick="bukaInfo('bumi')"></div></div>
+            <div class="orbit orbit-4"><div class="planet mars" onclick="bukaInfo('mars')"></div></div>
+            <div class="orbit orbit-5"><div class="planet jupiter" onclick="bukaInfo('jupiter')"></div></div>
+            <div class="orbit orbit-6"><div class="planet saturnus" onclick="bukaInfo('saturnus')"></div></div>
+            <div class="orbit orbit-7"><div class="planet uranus" onclick="bukaInfo('uranus')"></div></div>
+            <div class="orbit orbit-8"><div class="planet neptunus" onclick="bukaInfo('neptunus')"></div></div>
+        </div>
+    </main>
+
+    <audio id="bg-music" loop>
+        <source src="snowfall.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="modal-info" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="tutupInfo()">&times;</span>
+            <h2 id="nama-planet">Nama Planet</h2>
+            <img id="gambar-detail" src="" alt="Detail Planet">
+            <p id="deskripsi-planet">Keterangan...</p>
+            <div class="fakta-unik"><strong>Fakta Unik:</strong> <span id="fakta-planet">-</span></div>
+        </div>
+    </div>
+    
+    <div id="modal-game" class="modal hidden">
+        <div class="modal-content game-content">
+            <span class="close-btn" onclick="tutupGame()">&times;</span>
+            <h2>🚀 Tebak Gambar Planet</h2>
+            <p id="skor-game">Skor Kamu: 0</p>
+            <img id="soal-gambar" src="" alt="Planet Misterius">
+            <div id="jawaban-container"></div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="profil-guru-footer">
+            <img src="farhan.png" alt="Pak Farhan" class="avatar-footer">
+        </div>
+
+        <div class="container-kanan">
+            <div class="footer-buttons">
+                <button onclick="unduhModul()">📚 Modul</button>
+                <button onclick="mulaiKuis()">📝 Kuis Link</button>
+                <button onclick="bukaGame()" style="background-color: #32CD32; color: white;">🎮 Game Tebak</button>
+            </div>
+            <div class="label-kelas">Kelas 5 SD</div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
