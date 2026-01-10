@@ -86,7 +86,6 @@ footer {
     align-items: center;
     gap: 20px;
 }
-
 .profil-guru-footer {
     display: flex; align-items: center; color: #FFD700; font-size: 0.9rem; font-weight: bold;
 }
@@ -94,25 +93,25 @@ footer {
     width: 45px; height: 45px; border-radius: 50%; border: 2px solid #FFD700;
     object-fit: cover; margin-right: 10px;
 }
-
-/* CONTAINER KANAN (Tombol + Teks Kelas) */
 .container-kanan {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end; /* Agar teks ada di pojok kanan bawah tombol */
+    display: flex; flex-direction: column; align-items: flex-end;
 }
+.footer-buttons { display: flex; gap: 8px; }
 
-.footer-buttons {
-    display: flex;
-    gap: 8px;
-}
-
+/* STYLE KHUSUS LINK KELAS */
 .label-kelas {
+    margin-top: 5px; margin-right: 5px;
+}
+.label-kelas a {
     font-size: 0.8rem;
-    color: #FFD700; /* Warna emas */
+    color: #FFD700; /* Warna Emas */
     font-weight: bold;
-    margin-top: 5px;
-    margin-right: 5px; /* Sedikit geser biar lurus tombol */
+    text-decoration: none; /* Hilangkan garis bawah default */
+    transition: color 0.3s;
+}
+.label-kelas a:hover {
+    color: #ffffff; /* Berubah putih saat disentuh */
+    text-decoration: underline; /* Muncul garis bawah saat disentuh */
 }
 
 button {
@@ -127,16 +126,7 @@ button {
     .judul-header h1 { font-size: 0.9rem; }
     .info-akademik p { font-size: 0.6rem; }
     
-    footer {
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .container-kanan {
-        align-items: center; /* Di HP sebaiknya rata tengah biar rapi */
-    }
-    
-    .label-kelas {
-        margin-right: 0;
-    }
+    footer { flex-direction: column; gap: 15px; }
+    .container-kanan { align-items: center; }
+    .label-kelas { margin-right: 0; }
 }
