@@ -71,21 +71,24 @@ function tutupInfo() {
     document.getElementById("modal-info").classList.add("hidden");
     document.getElementById("modal-info").style.display = "none";
 }
-function unduhModul() { window.location.href = "modul.pdf"; }
+
+/* --- LOGIKA DOWNLOAD FILE (BARU) --- */
+function unduhMakalah() { window.location.href = "makalah.pdf"; }
+function unduhProject() { window.location.href = "project.pdf"; }
+function unduhPPT() { window.location.href = "powerpoint.pdf"; }
+
 function mulaiKuis() { window.open("https://gemini.google.com/share/bc9b2d8fee69", "_blank"); }
 
-/* --- LOGIKA GAME BARU (8 SOAL + PENILAIAN) --- */
+/* --- LOGIKA GAME --- */
 let skor = 0;
 let kunciJawaban = "";
-let urutanSoal = []; // Menyimpan daftar planet yang akan ditanyakan
-let nomorSoal = 0;   // Melacak kita ada di soal ke berapa (0-7)
+let urutanSoal = []; 
+let nomorSoal = 0;   
 const totalSoal = 8;
 const musik = document.getElementById("bg-music");
 
 function bukaGame() {
     const modal = document.getElementById("modal-game");
-    
-    // 1. Reset tampilan Modal ke tampilan Game (jika sebelumnya tampilan Nilai)
     modal.innerHTML = `
         <div class="modal-content game-content">
             <span class="close-btn" onclick="tutupGame()">&times;</span>
@@ -95,29 +98,16 @@ function bukaGame() {
             <div id="jawaban-container"></div>
         </div>
     `;
-
     modal.classList.remove("hidden");
     modal.style.display = "flex";
-    
-    // 2. Persiapan Data Game
     skor = 0;
     nomorSoal = 0;
-    
-    // Ambil semua planet KECUALI Matahari
     const allKeys = Object.keys(dataPlanet);
     urutanSoal = allKeys.filter(key => key !== "matahari");
-    
-    // Acak urutan soal biar tidak bosan (Fisher-Yates Shuffle)
     urutanSoal.sort(() => Math.random() - 0.5);
-
-    // 3. Mulai Soal Pertama & Musik
     updateStatusHeader();
     muatSoal();
-    
-    if (musik) {
-        musik.currentTime = 0;
-        musik.play().catch(e => console.log("Musik error: ", e));
-    }
+    if (musik) { musik.currentTime = 0; musik.play().catch(e => console.log("Musik error: ", e)); }
 }
 
 function tutupGame() {
@@ -127,48 +117,33 @@ function tutupGame() {
 }
 
 function updateStatusHeader() {
-    // Menampilkan: "Soal 1/8 | Skor: 0"
-    document.getElementById("skor-game").innerText = 
-        `Soal ${nomorSoal + 1} / ${totalSoal}  |  Skor: ${skor}`;
+    document.getElementById("skor-game").innerText = `Soal ${nomorSoal + 1} / ${totalSoal}  |  Skor: ${skor}`;
 }
 
 function muatSoal() {
-    // Cek apakah soal sudah habis?
     if (nomorSoal >= totalSoal) {
         tampilkanNilaiAkhir();
         return;
     }
-
-    // Ambil data planet berdasarkan urutan saat ini
     const keySoal = urutanSoal[nomorSoal];
     const dataSoal = dataPlanet[keySoal];
     kunciJawaban = dataSoal.nama;
-
-    // Tampilkan gambar
     document.getElementById("soal-gambar").src = dataSoal.gambar;
 
-    // Siapkan Pilihan Jawaban (1 Benar + 2 Salah)
-    // Ambil key planet untuk pengecoh (exclude matahari)
     const planetKeys = Object.keys(dataPlanet).filter(k => k !== "matahari");
-    
     let pilihan = [dataSoal.nama];
     while (pilihan.length < 3) {
         const randomKey = planetKeys[Math.floor(Math.random() * planetKeys.length)];
         const namaSalah = dataPlanet[randomKey].nama;
-        if (!pilihan.includes(namaSalah)) {
-            pilihan.push(namaSalah);
-        }
+        if (!pilihan.includes(namaSalah)) { pilihan.push(namaSalah); }
     }
-    // Acak posisi tombol
     pilihan.sort(() => Math.random() - 0.5);
 
-    // Render Tombol
     const container = document.getElementById("jawaban-container");
     container.innerHTML = "";
     pilihan.forEach(nama => {
         const btn = document.createElement("button");
-        btn.innerText = nama; 
-        btn.className = "btn-jawaban";
+        btn.innerText = nama; btn.className = "btn-jawaban";
         btn.onclick = function() { cekJawaban(nama); };
         container.appendChild(btn);
     });
@@ -176,13 +151,11 @@ function muatSoal() {
 
 function cekJawaban(jawabanUser) {
     if (jawabanUser === kunciJawaban) {
-        skor += 12.5; // 100 dibagi 8 soal = 12.5 poin per soal
+        skor += 12.5; 
         alert("✅ BENAR!");
     } else {
         alert("❌ SALAH. Jawaban yang benar: " + kunciJawaban);
     }
-    
-    // Lanjut ke soal berikutnya
     nomorSoal++;
     if (nomorSoal < totalSoal) {
         updateStatusHeader();
@@ -194,23 +167,12 @@ function cekJawaban(jawabanUser) {
 
 function tampilkanNilaiAkhir() {
     const modal = document.getElementById("modal-game");
-    const nilaiBulat = Math.round(skor); // Bulatkan nilai (misal 87.5 jadi 88)
-    
-    let pesan = "";
-    let warna = "";
-    
-    if (nilaiBulat >= 85) {
-        pesan = "LUAR BIASA! Calon Astronaut Hebat! 🚀";
-        warna = "#32CD32"; // Hijau
-    } else if (nilaiBulat >= 60) {
-        pesan = "Bagus! Tingkatkan lagi belajarnya. 👍";
-        warna = "#FFD700"; // Emas
-    } else {
-        pesan = "Jangan menyerah, coba baca modul lagi ya. 📚";
-        warna = "#FF4500"; // Merah
-    }
+    const nilaiBulat = Math.round(skor);
+    let pesan = ""; let warna = "";
+    if (nilaiBulat >= 85) { pesan = "LUAR BIASA! Calon Astronaut Hebat! 🚀"; warna = "#32CD32"; } 
+    else if (nilaiBulat >= 60) { pesan = "Bagus! Tingkatkan lagi belajarnya. 👍"; warna = "#FFD700"; } 
+    else { pesan = "Jangan menyerah, coba baca modul lagi ya. 📚"; warna = "#FF4500"; }
 
-    // Ubah tampilan Modal menjadi Rapor Nilai
     modal.innerHTML = `
         <div class="modal-content" style="text-align: center;">
             <span class="close-btn" onclick="tutupGame()">&times;</span>
@@ -222,16 +184,10 @@ function tampilkanNilaiAkhir() {
             <button onclick="tutupGame()" style="background-color: #555; color: white; padding: 10px 20px; border: none; border-radius: 20px; font-weight: bold; cursor: pointer; margin-left: 10px;">Keluar ❌</button>
         </div>
     `;
-    
-    // Matikan musik saat nilai muncul (opsional, biar dramatis)
     if (musik) { musik.pause(); }
 }
 
-/* --- EVENT LISTENER KLIK LUAR MODAL --- */
 window.onclick = function(event) {
     const mInfo = document.getElementById("modal-info");
-    const mGame = document.getElementById("modal-game");
     if (event.target == mInfo) tutupInfo();
-    // Khusus game, kita kunci biar gak ketutup gak sengaja pas lagi main
-    // Jadi user harus klik tombol X atau Keluar
 }

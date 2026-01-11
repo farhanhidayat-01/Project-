@@ -28,9 +28,13 @@
     </header>
 
     <main>
-        <p class="instruksi" style="text-align: center; color: #FFD700; margin-top: 5px;">🔍 Klik planet untuk belajar!</p>
+        <p class="instruksi" style="text-align: center; color: #FFD700; margin-top: 5px;">
+            🔍 Arahkan kursor ke planet agar berhenti, lalu <b>KLIK</b> untuk info!
+        </p>
+        
         <div class="ruang-angkasa">
             <div class="matahari" onclick="bukaInfo('matahari')"></div>
+            
             <div class="orbit orbit-1"><div class="planet merkurius" onclick="bukaInfo('merkurius')"></div></div>
             <div class="orbit orbit-2"><div class="planet venus" onclick="bukaInfo('venus')"></div></div>
             <div class="orbit orbit-3"><div class="planet bumi" onclick="bukaInfo('bumi')"></div></div>
@@ -73,7 +77,10 @@
 
         <div class="container-kanan">
             <div class="footer-buttons">
-                <button onclick="unduhModul()">📚 Modul</button>
+                <button onclick="unduhMakalah()">📄 Makalah</button>
+                <button onclick="unduhProject()">📂 Project</button>
+                <button onclick="unduhPPT()">📊 PPT</button>
+                
                 <button onclick="mulaiKuis()">📝 Kuis Link</button>
                 <button onclick="bukaGame()" style="background-color: #32CD32; color: white;">🎮 Game Tebak</button>
             </div>

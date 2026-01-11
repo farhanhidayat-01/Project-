@@ -33,14 +33,28 @@ header {
     box-shadow: 0 0 30px #FF8C00; z-index: 10; cursor: pointer;
 }
 @keyframes revolusi { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
 .orbit {
     position: absolute; top: 50%; left: 50%; border: 1px dashed rgba(255, 255, 255, 0.2);
     border-radius: 50%; animation: revolusi linear infinite;
 }
+
+/* --- FITUR BARU: PLANET BERHENTI SAAT DISENTUH AGAR MUDAH DIKLIK --- */
+.orbit:hover {
+    animation-play-state: paused;
+    border-color: rgba(255, 215, 0, 0.6); /* Garis orbit jadi kuning saat disentuh */
+    cursor: pointer;
+}
+
 .planet {
     position: absolute; top: -6px; left: 50%; border-radius: 50%; transform: translateX(-50%);
     cursor: pointer; box-shadow: 0 0 5px rgba(255,255,255,0.8);
+    transition: transform 0.3s;
 }
+.planet:hover {
+    transform: translateX(-50%) scale(1.5); /* Planet membesar sedikit saat disentuh */
+}
+
 /* UKURAN PLANET */
 .orbit-1 { width: 70px; height: 70px; animation-duration: 3s; z-index: 9; } .merkurius { width: 8px; height: 8px; background-color: #A9A9A9; }
 .orbit-2 { width: 100px; height: 100px; animation-duration: 5s; z-index: 8; } .venus { width: 10px; height: 10px; background-color: #FFA500; }
@@ -51,7 +65,7 @@ header {
 .orbit-7 { width: 320px; height: 320px; animation-duration: 25s; z-index: 3; } .uranus { width: 14px; height: 14px; background-color: #00FFFF; }
 .orbit-8 { width: 370px; height: 370px; animation-duration: 30s; z-index: 2; } .neptunus { width: 13px; height: 13px; background-color: #00008B; }
 
-/* 4. MODAL GAME STYLE */
+/* 4. MODAL & FOOTER */
 .modal {
     position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%;
     background-color: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center;
@@ -78,45 +92,21 @@ header {
 
 /* 5. FOOTER UPDATE */
 footer {
-    background: rgba(0,0,0,0.8);
-    padding: 15px 20px;
-    z-index: 20;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    background: rgba(0,0,0,0.8); padding: 15px 20px; z-index: 20;
+    display: flex; justify-content: center; align-items: center; gap: 20px;
 }
-.profil-guru-footer {
-    display: flex; align-items: center; color: #FFD700; font-size: 0.9rem; font-weight: bold;
-}
-.avatar-footer {
-    width: 45px; height: 45px; border-radius: 50%; border: 2px solid #FFD700;
-    object-fit: cover; margin-right: 10px;
-}
-.container-kanan {
-    display: flex; flex-direction: column; align-items: flex-end;
-}
-.footer-buttons { display: flex; gap: 8px; }
-
-/* STYLE KHUSUS LINK KELAS */
-.label-kelas {
-    margin-top: 5px; margin-right: 5px;
-}
-.label-kelas a {
-    font-size: 0.8rem;
-    color: #FFD700; /* Warna Emas */
-    font-weight: bold;
-    text-decoration: none; /* Hilangkan garis bawah default */
-    transition: color 0.3s;
-}
-.label-kelas a:hover {
-    color: #ffffff; /* Berubah putih saat disentuh */
-    text-decoration: underline; /* Muncul garis bawah saat disentuh */
-}
+.profil-guru-footer { display: flex; align-items: center; color: #FFD700; font-size: 0.9rem; font-weight: bold; }
+.avatar-footer { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; margin-right: 10px; }
+.container-kanan { display: flex; flex-direction: column; align-items: flex-end; }
+.footer-buttons { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; } /* Tombol dirapatkan sedikit */
+.label-kelas { margin-top: 5px; margin-right: 5px; }
+.label-kelas a { font-size: 0.8rem; color: #FFD700; font-weight: bold; text-decoration: none; transition: color 0.3s; }
+.label-kelas a:hover { color: #ffffff; text-decoration: underline; }
 
 button {
-    padding: 8px 15px; background: #FFD700; border: none;
-    border-radius: 20px; font-weight: bold; cursor: pointer; white-space: nowrap;
+    padding: 6px 12px; /* Ukuran tombol sedikit diperkecil agar muat */
+    background: #FFD700; border: none; border-radius: 20px; 
+    font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 0.8rem;
 }
 
 /* RESPONSIF HP */
@@ -128,5 +118,129 @@ button {
     
     footer { flex-direction: column; gap: 15px; }
     .container-kanan { align-items: center; }
+    .footer-buttons { justify-content: center; }
+    .label-kelas { margin-right: 0; }
+}
+/* 1. RESET & BASIC */
+body, html {
+    margin: 0; padding: 0; height: 100%; font-family: 'Nunito', sans-serif; overflow: hidden; 
+}
+body {
+    background-image: url('background.jpg'); background-size: cover; background-position: center;
+    color: #ffffff; display: flex; flex-direction: column; justify-content: space-between;
+}
+
+/* 2. HEADER */
+header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding: 10px 15px; background: rgba(0, 0, 0, 0.7); 
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5); z-index: 20; 
+}
+.logo-container { display: flex; align-items: flex-start; max-width: 100%; }
+.logo { width: 35px; margin-right: 10px; margin-top: 5px; }
+.judul-header h1 {
+    font-family: 'Fredoka One', cursive; font-size: 1rem; color: #FFD700; 
+    margin: 0 0 5px 0; line-height: 1.2;
+}
+.info-akademik p { margin: 0; font-size: 0.65rem; color: #e0e0e0; line-height: 1.3; }
+.info-akademik .penulis { color: #00FFFF; font-weight: bold; margin-top: 2px; }
+
+/* 3. TATA SURYA */
+.ruang-angkasa {
+    position: relative; width: 380px; height: 380px; margin: 0 auto; border-radius: 50%; 
+    margin-top: 10px; transform: scale(0.95);
+}
+.matahari {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+    width: 45px; height: 45px; background-color: #FFD700; border-radius: 50%;
+    box-shadow: 0 0 30px #FF8C00; z-index: 10; cursor: pointer;
+}
+@keyframes revolusi { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+
+.orbit {
+    position: absolute; top: 50%; left: 50%; border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 50%; animation: revolusi linear infinite;
+}
+
+/* --- FITUR BARU: PLANET BERHENTI SAAT DISENTUH AGAR MUDAH DIKLIK --- */
+.orbit:hover {
+    animation-play-state: paused;
+    border-color: rgba(255, 215, 0, 0.6); /* Garis orbit jadi kuning saat disentuh */
+    cursor: pointer;
+}
+
+.planet {
+    position: absolute; top: -6px; left: 50%; border-radius: 50%; transform: translateX(-50%);
+    cursor: pointer; box-shadow: 0 0 5px rgba(255,255,255,0.8);
+    transition: transform 0.3s;
+}
+.planet:hover {
+    transform: translateX(-50%) scale(1.5); /* Planet membesar sedikit saat disentuh */
+}
+
+/* UKURAN PLANET */
+.orbit-1 { width: 70px; height: 70px; animation-duration: 3s; z-index: 9; } .merkurius { width: 8px; height: 8px; background-color: #A9A9A9; }
+.orbit-2 { width: 100px; height: 100px; animation-duration: 5s; z-index: 8; } .venus { width: 10px; height: 10px; background-color: #FFA500; }
+.orbit-3 { width: 135px; height: 135px; animation-duration: 8s; z-index: 7; } .bumi { width: 11px; height: 11px; background-color: #1E90FF; }
+.orbit-4 { width: 170px; height: 170px; animation-duration: 10s; z-index: 6; } .mars { width: 9px; height: 9px; background-color: #FF4500; }
+.orbit-5 { width: 220px; height: 220px; animation-duration: 15s; z-index: 5; } .jupiter { width: 22px; height: 22px; background-color: #DEB887; }
+.orbit-6 { width: 270px; height: 270px; animation-duration: 20s; z-index: 4; } .saturnus { width: 18px; height: 18px; background-color: #F4A460; border: 2px solid rgba(255, 255, 255, 0.5); }
+.orbit-7 { width: 320px; height: 320px; animation-duration: 25s; z-index: 3; } .uranus { width: 14px; height: 14px; background-color: #00FFFF; }
+.orbit-8 { width: 370px; height: 370px; animation-duration: 30s; z-index: 2; } .neptunus { width: 13px; height: 13px; background-color: #00008B; }
+
+/* 4. MODAL & FOOTER */
+.modal {
+    position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center;
+}
+.hidden { display: none !important; }
+.modal-content {
+    background-color: #fff; color: #333; padding: 20px; border-radius: 15px;
+    width: 80%; max-width: 350px; text-align: center; position: relative;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+.close-btn { position: absolute; top: 10px; right: 15px; font-size: 24px; font-weight: bold; cursor: pointer; color: #555; }
+#gambar-detail { width: 100%; height: 120px; object-fit: cover; border-radius: 10px; margin: 10px 0; }
+#skor-game { font-size: 1.2rem; color: #32CD32; font-weight: bold; margin: 10px 0; }
+#soal-gambar { 
+    width: 150px; height: 150px; object-fit: contain; border-radius: 50%; 
+    border: 4px solid #333; margin-bottom: 15px; background-color: #000;
+}
+#jawaban-container { display: flex; flex-direction: column; gap: 8px; }
+.btn-jawaban {
+    background-color: #f0f0f0; color: #333; border: 2px solid #ddd; padding: 10px; 
+    width: 100%; border-radius: 8px; cursor: pointer; font-size: 1rem; transition: 0.2s;
+}
+.btn-jawaban:hover { background-color: #e0e0e0; border-color: #bbb; }
+
+/* 5. FOOTER UPDATE */
+footer {
+    background: rgba(0,0,0,0.8); padding: 15px 20px; z-index: 20;
+    display: flex; justify-content: center; align-items: center; gap: 20px;
+}
+.profil-guru-footer { display: flex; align-items: center; color: #FFD700; font-size: 0.9rem; font-weight: bold; }
+.avatar-footer { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #FFD700; object-fit: cover; margin-right: 10px; }
+.container-kanan { display: flex; flex-direction: column; align-items: flex-end; }
+.footer-buttons { display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end; } /* Tombol dirapatkan sedikit */
+.label-kelas { margin-top: 5px; margin-right: 5px; }
+.label-kelas a { font-size: 0.8rem; color: #FFD700; font-weight: bold; text-decoration: none; transition: color 0.3s; }
+.label-kelas a:hover { color: #ffffff; text-decoration: underline; }
+
+button {
+    padding: 6px 12px; /* Ukuran tombol sedikit diperkecil agar muat */
+    background: #FFD700; border: none; border-radius: 20px; 
+    font-weight: bold; cursor: pointer; white-space: nowrap; font-size: 0.8rem;
+}
+
+/* RESPONSIF HP */
+@media screen and (max-width: 768px) {
+    body { overflow-y: auto; height: auto; min-height: 100vh; }
+    .ruang-angkasa { transform: scale(0.9); margin-top: 20px; margin-bottom: 40px;}
+    .judul-header h1 { font-size: 0.9rem; }
+    .info-akademik p { font-size: 0.6rem; }
+    
+    footer { flex-direction: column; gap: 15px; }
+    .container-kanan { align-items: center; }
+    .footer-buttons { justify-content: center; }
     .label-kelas { margin-right: 0; }
 }
